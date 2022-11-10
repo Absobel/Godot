@@ -1,0 +1,99 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://art/playerGrey_walk2.png" type="Texture" id=1]
+[ext_resource path="res://art/playerGrey_walk1.png" type="Texture" id=2]
+[ext_resource path="res://art/playerGrey_up1.png" type="Texture" id=3]
+[ext_resource path="res://art/playerGrey_up2.png" type="Texture" id=4]
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends Area2D
+signal hit
+
+export var speed = 400 # How fast the player will move (pixels/sec).
+var screen_size # Size of the game window.
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	screen_size = get_viewport_rect().size
+	start(Vector2(240, 360))
+
+
+# Called every frame. 'dt' is the elapsed time since the previous frame.
+func _process(dt):
+	var velocity = Vector2.ZERO # The player's movement vector.
+	
+	if Input.is_action_pressed(\"move_right\"):
+		velocity.x += 1
+	if Input.is_action_pressed(\"move_left\"):
+		velocity.x -= 1
+	if Input.is_action_pressed(\"move_down\"):
+		velocity.y += 1
+	if Input.is_action_pressed(\"move_up\"):
+		velocity.y -= 1
+
+	if velocity.length() > 0:
+		velocity = velocity.normalized() * speed
+		$AnimatedSprite.play()
+	else:
+		$AnimatedSprite.stop()
+		
+	if velocity.x != 0:
+		$AnimatedSprite.animation = \"walk\"
+		$AnimatedSprite.flip_v = false
+		$AnimatedSprite.flip_h = velocity.x < 0
+	elif velocity.y != 0:
+		$AnimatedSprite.animation = \"up\"
+		$AnimatedSprite.flip_v = velocity.y > 0
+	
+	position += velocity * dt
+	position.x = clamp(position.x, 0, screen_size.x)
+	position.y = clamp(position.y, 0, screen_size.y)
+
+
+
+func _on_Player_body_entered(body):
+	hide() # Player disappears after being hit.
+	emit_signal(\"hit\")
+	# Must be deferred as we can't change physics properties on a physics callback.
+	$CollisionShape2D.set_deferred(\"disabled\", true)
+
+
+func start(pos):
+	position = pos
+	show()
+	$CollisionShape2D.disabled = false
+"
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 26.0
+height = 14.0
+
+[node name="Player" type="Area2D"]
+script = SubResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 1 )
+animation = "walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[connection signal="body_entered" from="." to="." method="_on_Player_body_entered"]
