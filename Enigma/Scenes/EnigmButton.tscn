@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Resources/buttonYellow.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/EnigmButton.gd" type="Script" id=3]
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 5.88032
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 10.7761
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 32, 7.25 )
+
+[node name="EnigmButton" type="StaticBody2D"]
+scale = Vector2( 2, 2 )
+script = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2( 2, 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 0, 6.5 )
+scale = Vector2( 2, 2 )
+shape = SubResource( 3 )
+
+[node name="ButtonPressed" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 31 )
+scale = Vector2( 2, 2 )
+shape = SubResource( 2 )
+
+[node name="ButtonPressed2" type="CollisionShape2D" parent="."]
+position = Vector2( -0.5, 27.75 )
+shape = SubResource( 4 )
+
+[connection signal="area_entered" from="Area2D" to="." method="_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_area_exited"]
