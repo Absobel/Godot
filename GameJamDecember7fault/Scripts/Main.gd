@@ -7,9 +7,9 @@ func load_level(level_number):
 	var packed_living_level = load("res://Scenes/LivingLevel.tscn")
 	var living_level = packed_living_level.instance()
 
+	# Instance the level
 	living_level.load_level(level_number)
-	var level_size = living_level.level_size
-
+	var level_size = living_level.get_level_size()
 	self.add_child(living_level)
 
 	# Create the background
@@ -37,6 +37,9 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	var living_level = $LivingLevel
+	
+
+
 

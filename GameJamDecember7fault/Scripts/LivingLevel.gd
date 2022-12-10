@@ -6,6 +6,8 @@ enum {EMPTY, LIVING_RED, LIVING_GREY}
 var level_size
 var level_array
 
+var llb_array = []
+
 
 
 func load_level(level_number):
@@ -26,6 +28,7 @@ func load_level(level_number):
 	var img_llb_grey = load("res://Assets/LLB_Grey.png")
 	var img_llb_red = load("res://Assets/LLB_Red.png")
 	for i in range(level_size[0]):
+		llb_array.append([])
 		for j in range(level_size[1]):
 			if level_array[i][j] != EMPTY:
 				var llb = packed_llb.instance()
@@ -35,13 +38,19 @@ func load_level(level_number):
 				elif level_array[i][j] == LIVING_RED:
 					llb_sprite.set_texture(img_llb_red)
 				llb.position = Vector2((i+0.5)*LIVING_BLOC_SIZE, (j+0.5)*LIVING_BLOC_SIZE)
+				llb_array[i].append(llb)
 				self.add_child(llb)
+			else:
+				llb_array[i].append(null)
 
 
+# Getters
 func get_llb(x,y):
-	pass
-
-
+	return llb_array[x][y]
+func get_level_size():
+	return level_size
+func get_level_array():
+	return level_array
 
 
 # Called when the node enters the scene tree for the first time.
