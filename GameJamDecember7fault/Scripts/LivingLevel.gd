@@ -75,7 +75,7 @@ func load_from_array():
 func move_left():
 	for j in range(level_size[1]):
 		for i in range(level_size[0]):
-			if level_array[i][j] == LIVING_RED and j-1 > 0:
+			if level_array[i][j] == LIVING_RED and j-1 >= 0:
 				if level_array[i][j-1] == EMPTY or level_array[i][j-1] == FINISH:
 					level_array[i][j] = EMPTY if [j,i] != finish_coords else FINISH
 					level_array[i][j-1] = LIVING_RED
@@ -101,7 +101,7 @@ func move_right():
 func move_up():
 	for i in range(level_size[0]):
 		for j in range(level_size[1]):
-			if level_array[i][j] == LIVING_RED and i-1 > 0:
+			if level_array[i][j] == LIVING_RED and i-1 >= 0:
 				if level_array[i-1][j] == EMPTY or level_array[i-1][j] == FINISH:
 					level_array[i][j] = EMPTY if [j,i] != finish_coords else FINISH
 					level_array[i-1][j] = LIVING_RED
