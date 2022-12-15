@@ -1,0 +1,77 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Assets/screen_lvl1.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Dialogue/il_va_bien_question.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Dialogue/Nothing.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Dialogue/que_ceux_d'accord_me_suivent.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Dialogue/mais_faut_faire_quelque_chose_non_incredule.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Dialogue/je_sais_pas_il_bouge_pas.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Dialogue/non_les_regles_cest_les_regles.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Dialogue/que_vous_le_voulliez_ou_non.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Dialogue/ah_mais_si_on_va_bouger.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Dialogue/nous_sommes_le_niveau_on_ne_bouge_pas.png" type="Texture" id=10]
+[ext_resource path="res://Scripts/Cinematic.gd" type="Script" id=11]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource( 11 )
+
+[node name="Background" type="TextureRect" parent="."]
+margin_left = 2.0
+margin_top = 4.0
+margin_right = 999.0
+margin_bottom = 1003.0
+texture = ExtResource( 1 )
+
+[node name="1" type="Sprite" parent="."]
+visible = false
+position = Vector2( 261, 135 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 3 )
+
+[node name="2" type="Sprite" parent="."]
+visible = false
+position = Vector2( 261, 136 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 2 )
+
+[node name="3" type="Sprite" parent="."]
+visible = false
+position = Vector2( 656, 335 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 6 )
+
+[node name="4" type="Sprite" parent="."]
+visible = false
+position = Vector2( 258, 236 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 5 )
+
+[node name="5" type="Sprite" parent="."]
+visible = false
+position = Vector2( 852, 336 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 7 )
+
+[node name="6" type="Sprite" parent="."]
+visible = false
+position = Vector2( 562, 329 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 10 )
+
+[node name="7" type="Sprite" parent="."]
+visible = false
+position = Vector2( 261, 136 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 9 )
+
+[node name="8" type="Sprite" parent="."]
+visible = false
+position = Vector2( 261, 136 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 8 )
+
+[node name="9" type="Sprite" parent="."]
+visible = false
+position = Vector2( 261, 136 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 4 )

@@ -3,6 +3,7 @@
 [ext_resource path="res://Assets/Finish.png" type="Texture" id=1]
 
 [node name="Finish" type="Node2D"]
+show_behind_parent = true
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )

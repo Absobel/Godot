@@ -8,17 +8,11 @@ extends CanvasLayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	Globals.cinematic = true
+	OS.delay_msec(1000)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-
-func _on_New_Game_pressed():
-	get_tree().change_scene("res://Scenes/Explanations.tscn")
-
-
-func _on_Levels_pressed():
-	get_tree().change_scene("res://Scenes/LevelMenu.tscn")
+func _process(delta):
+	if Input.is_action_just_pressed("skip"):
+		get_tree().change_scene("res://Scenes/Cinematic.tscn")

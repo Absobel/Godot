@@ -1,6 +1,7 @@
 extends Node2D
 
 const LIVING_BLOC_SIZE = 64
+var cinematic = true
 
 func load_level(level_number):
 	var packed_living_level = load("res://Scenes/LivingLevel.tscn")
@@ -38,31 +39,39 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	var living_level = $LivingLevel
-
+	
 	if Input.is_action_just_pressed("move_left"):
-		living_level.move_left()
+		living_level.move([0,-1])
 
 	if Input.is_action_just_pressed("move_right"):
-		living_level.move_right()
+		living_level.move([0,1])
 
 	if Input.is_action_just_pressed("move_up"):
-		living_level.move_up()
+		living_level.move([-1,0])
 
 	if Input.is_action_just_pressed("move_down"):
-		living_level.move_down()
+		living_level.move([1,0])
 
 	if Input.is_action_just_pressed("reset"):
 		get_tree().reload_current_scene()
 
-	if living_level.check_win():
-		OS.delay_msec(1000)
-		
+	if Input.is_action_just_pressed("undo"):
+		living_level.undo()
+
+	if Input.is_action_just_pressed("mainmenu"):
+		Globals.set_level_number(1)
+		get_tree().change_scene("res://Scenes/MainMenu.tscn")
+
+	if living_level.check_win():		
 		var lvl = Globals.get_level_number()
-		var new_level_number = lvl+1 if lvl+1 <= 3 else 1
-		Globals.set_level_number(new_level_number)
-		get_tree().reload_current_scene()
+		var new_level_number = lvl+1
+		if new_level_number > Globals.NB_LEVELS:
+			get_tree().change_scene("res://Scenes/MainMenu.tscn")
+		else:
+			Globals.set_level_number(new_level_number)
+			get_tree().reload_current_scene()
 
 
 
