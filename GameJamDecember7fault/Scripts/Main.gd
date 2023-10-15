@@ -5,7 +5,7 @@ var cinematic = true
 
 func load_level(level_number):
 	var packed_living_level = load("res://Scenes/LivingLevel.tscn")
-	var living_level = packed_living_level.instance()
+	var living_level = packed_living_level.instantiate()
 
 	# Instance the level
 	living_level.load_level(level_number)
@@ -62,13 +62,13 @@ func _process(_delta):
 
 	if Input.is_action_just_pressed("mainmenu"):
 		Globals.set_level_number(1)
-		get_tree().change_scene("res://Scenes/MainMenu.tscn")
+		get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
 
 	if living_level.check_win():		
 		var lvl = Globals.get_level_number()
 		var new_level_number = lvl+1
 		if new_level_number > Globals.NB_LEVELS:
-			get_tree().change_scene("res://Scenes/MainMenu.tscn")
+			get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
 		else:
 			Globals.set_level_number(new_level_number)
 			get_tree().reload_current_scene()

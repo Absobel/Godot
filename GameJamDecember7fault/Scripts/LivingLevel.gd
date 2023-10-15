@@ -17,11 +17,12 @@ var is_first_load = true
 
 func load_level(lvl_number):
 	# Load the level from a json file
-	var file = File.new()
 	var level_path = "res://Levels/level%d.json" % lvl_number
-	file.open(level_path, File.READ)
+	var file = FileAccess.open(level_path, FileAccess.READ)
 	var text = file.get_as_text()
-	var dict = parse_json(text)
+	var test_json_conv = JSON.new()
+	test_json_conv.parse(text)
+	var dict = test_json_conv.get_data()
 	file.close()
 
 	# Get level information
@@ -55,8 +56,8 @@ func load_from_array():
 			pos = Vector2((j+0.5)*LIVING_BLOC_SIZE, (i+0.5)*LIVING_BLOC_SIZE)
 			if color != EMPTY:
 				if color == LIVING_GREY or color == LIVING_RED:
-					var llb = packed_llb.instance()
-					var llb_sprite = llb.get_node("Sprite")
+					var llb = packed_llb.instantiate()
+					var llb_sprite = llb.get_node("Sprite2D")
 					if level_array[i][j] == LIVING_GREY:
 						llb_sprite.set_texture(img_llb_grey)
 					elif level_array[i][j] == LIVING_RED and [j,i] == finish_coords:
@@ -64,19 +65,19 @@ func load_from_array():
 					llb.position = pos
 					self.add_child(llb)
 				elif color == PLAYER:
-					var player = packed_player.instance()
+					var player = packed_player.instantiate()
 					if [j,i] == finish_coords:
-						player.get_node("Sprite").set_texture(img_player_on_finish)
+						player.get_node("Sprite2D").set_texture(img_player_on_finish)
 					player.position = pos
 					self.add_child(player)
 				elif color == BOX:
-					var box = packed_box.instance()
+					var box = packed_box.instantiate()
 					if [j,i] == finish_coords:
-						box.get_node("Sprite").set_texture(img_box_on_finish)
+						box.get_node("Sprite2D").set_texture(img_box_on_finish)
 					box.position = pos
 					self.add_child(box)
 				elif color == FINISH:
-					var finish = packed_finish.instance()
+					var finish = packed_finish.instantiate()
 					if is_first_load:
 						finish_coords = [j,i]
 					finish.position = pos
@@ -122,7 +123,7 @@ func move(direction):
 # Others
 
 func undo():
-	if not array_of_previous_level_arrays.empty():
+	if not array_of_previous_level_arrays.is_empty():
 		level_array = array_of_previous_level_arrays.pop_back()
 		load_from_array()
 

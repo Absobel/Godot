@@ -17,8 +17,8 @@ func _ready():
 
 
 func _on_New_Game_pressed():
-	get_tree().change_scene("res://Scenes/Explanations.tscn")
+	get_tree().change_scene_to_file("res://Scenes/Explanations.tscn")
 
 
 func _on_Levels_pressed():
-	get_tree().change_scene("res://Scenes/LevelMenu.tscn")
+	get_tree().change_scene_to_file("res://Scenes/LevelMenu.tscn")

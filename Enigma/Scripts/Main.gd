@@ -14,7 +14,7 @@ func _process(_delta):
 
 
 func _on_EnigmButton_button_pressed():
-	var instance = P2.instance()
+	var instance = P2.instantiate()
 	add_child(instance)
 	instance.position = Vector2(0,0)
 

@@ -19,9 +19,9 @@ func _ready():
 #	pass
 
 func _area_entered(_area:Area2D):
-	$Sprite.texture = load("res://Resources/buttonYellow_pressed.png")
+	$Sprite2D.texture = load("res://Resources/buttonYellow_pressed.png")
 	emit_signal("button_pressed")
 
 func _area_exited(_area:Area2D):
-	$Sprite.texture = load("res://Resources/buttonYellow.png")
+	$Sprite2D.texture = load("res://Resources/buttonYellow.png")
 	emit_signal("button_unpressed")

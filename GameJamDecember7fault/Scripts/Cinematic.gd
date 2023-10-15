@@ -28,4 +28,4 @@ func _process(delta):
 	else:
 		OS.delay_msec(600)
 		Globals.level_number = 1
-		get_tree().change_scene("res://Scenes/Main.tscn")
+		get_tree().change_scene_to_file("res://Scenes/Main.tscn")
